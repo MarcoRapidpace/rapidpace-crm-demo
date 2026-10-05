@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapidpace CRM Demo · US Sweepstakes — Sweepstakes Journeys &amp; Templates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top, #2b2b2b 0%, #0b0b0b 100%);
+            font-family: 'Poppins', Arial, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
+            border: 1px solid rgba(83, 253, 202, 0.25);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 0 25px rgba(83, 253, 202, 0.15);
+        }
+        .logo {
+            display: block;
+            width: 180px;
+            max-width: 55%;
+            height: auto;
+            margin: 0 auto 18px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            text-align: center;
+            margin: 0 0 6px 0;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: #53FDCA;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #53FDCA;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 30px 0 12px 0;
+            border-bottom: 1px dashed rgba(83, 253, 202, 0.3);
+            padding-bottom: 6px;
+        }
+        .template-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .template-item {
+            margin-bottom: 12px;
+        }
+        .template-link {
+            display: block;
+            background: rgba(83, 253, 202, 0.04);
+            border: 1px solid rgba(83, 253, 202, 0.3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .template-link:hover {
+            background: rgba(83, 253, 202, 0.12);
+            border-color: #53FDCA;
+            transform: translateY(-2px);
+        }
+        .template-link.upcoming {
+            border-style: dashed;
+            opacity: 0.6;
+            background: transparent;
+            cursor: default;
+            pointer-events: none;
+        }
+        .template-desc {
+            font-size: 12px;
+            color: #aaaaaa;
+            margin-top: 4px;
+            font-weight: 400;
+            line-height: 140%;
+        }
+        /* Multi-version card (used when a template has EN/ES or other variants) */
+        .template-card {
+            background: rgba(83, 253, 202, 0.04);
+            border: 1px solid rgba(83, 253, 202, 0.3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            transition: all 0.2s ease;
+        }
+        .template-card:hover {
+            background: rgba(83, 253, 202, 0.08);
+            border-color: #53FDCA;
+        }
+        .template-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .template-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .lang-switch {
+            display: inline-flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .lang-pill {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #53FDCA;
+            border: 1px solid rgba(83, 253, 202, 0.45);
+            border-radius: 5px;
+            padding: 3px 9px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .lang-pill:hover {
+            background: #53FDCA;
+            color: #0b0b0b;
+        }
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 40px;
+            border-top: 1px solid rgba(83, 253, 202, 0.2);
+            padding-top: 20px;
+            line-height: 150%;
+        }
+
+        /* ===== Player journey map ===== */
+        .map-intro { font-size: 12px; color: #aaa; line-height: 1.6; margin: 0 0 16px; text-align: center; }
+        .map-block { background: rgba(255,255,255,0.02); border: 1px solid rgba(83, 253, 202,0.18); border-radius: 14px; padding: 18px 16px 20px; margin: 0 0 18px; }
+        .map-label { font-size: 11px; font-weight: 700; color: #53FDCA; text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 14px; text-align: center; }
+        .flow { display: flex; flex-direction: column; align-items: center; }
+        .node { display: block; width: 100%; max-width: 270px; box-sizing: border-box; border-radius: 10px; padding: 10px 12px; text-align: center; text-decoration: none; color: #fff; }
+        .node .when { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #0b0b0b; background: #53FDCA; border-radius: 20px; padding: 2px 8px; margin-bottom: 5px; }
+        .node .what { display: block; font-size: 13px; font-weight: 600; line-height: 1.35; }
+        .node .hook { display: block; font-size: 11px; color: #aaa; margin-top: 3px; line-height: 1.4; font-weight: 400; }
+        .node.start { background: #0b0b0b; border: 1px solid rgba(255,255,255,0.25); }
+        .node.email { background: rgba(83, 253, 202,0.07); border: 1px solid rgba(83, 253, 202,0.55); transition: all .15s ease; }
+        .node.email:hover { background: rgba(83, 253, 202,0.16); border-color: #53FDCA; transform: translateY(-1px); }
+        .node.email.optional { border-style: dashed; background: rgba(83, 253, 202,0.03); }
+        .node .when.opt { background: transparent; color: #53FDCA; border: 1px dashed rgba(83, 253, 202,0.7); }
+        .node.check { background: transparent; border: 1px dashed rgba(170,140,255,0.7); color: #cbbcff; font-size: 12px; font-weight: 600; max-width: 220px; }
+        .node.end { background: transparent; border: 1px dashed rgba(255,110,110,0.6); color: #ff9c9c; font-size: 11px; font-weight: 600; max-width: 170px; padding: 6px 10px; }
+        .node .pills { display: flex; gap: 6px; justify-content: center; margin-top: 6px; }
+        .node .pills a { font-size: 10px; font-weight: 700; color: #53FDCA; border: 1px solid rgba(83, 253, 202,.5); border-radius: 5px; padding: 2px 9px; text-decoration: none; }
+        .node .pills a:hover { background: #53FDCA; color: #0b0b0b; }
+        .wire { display: flex; flex-direction: column; align-items: center; color: rgba(83, 253, 202,0.7); font-size: 10px; letter-spacing: .4px; padding: 3px 0; }
+        .wire::before { content: ""; width: 1px; height: 14px; background: rgba(83, 253, 202,0.45); }
+        .wire span { padding: 2px 0 1px; color: #bbb; text-transform: uppercase; font-weight: 600; }
+        .wire::after { content: "▼"; font-size: 9px; line-height: 1; }
+        .branches { display: flex; gap: 12px; width: 100%; align-items: flex-start; margin-top: 2px; }
+        .branch { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; border-top: 1px solid rgba(83, 253, 202,0.35); padding-top: 8px; }
+        .branch-tag { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; border-radius: 4px; padding: 2px 8px; margin-bottom: 2px; }
+        .branch-tag.no { color: #ff9c9c; border: 1px solid rgba(255,110,110,.5); }
+        .branch-tag.yes { color: #8fe3a5; border: 1px solid rgba(110,220,140,.5); }
+        .jump { font-size: 10.5px; color: #8fe3a5; text-align: center; margin-top: 8px; line-height: 1.4; max-width: 240px; }
+        .ladder { display: flex; align-items: stretch; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .ladder .node { flex: 1 1 110px; max-width: none; }
+        .ladder .arrow { align-self: center; color: rgba(83, 253, 202,0.7); font-size: 12px; }
+        .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .day { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 6px 4px; min-height: 92px; display: flex; flex-direction: column; gap: 4px; }
+        .day b { font-size: 10px; color: #53FDCA; text-transform: uppercase; letter-spacing: .8px; text-align: center; }
+        .chip { display: block; font-size: 10px; line-height: 1.3; color: #fff; text-decoration: none; background: rgba(83, 253, 202,0.08); border: 1px solid rgba(83, 253, 202,0.4); border-radius: 6px; padding: 4px 5px; text-align: center; }
+        .chip:hover { background: rgba(83, 253, 202,0.2); }
+        .chip.vip { border-color: rgba(170,140,255,0.6); background: rgba(170,140,255,0.08); }
+        .triggers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .trigger:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        .trigger { display: flex; flex-direction: column; align-items: center; }
+        .map-note { font-size: 10.5px; color: #888; margin: 12px 0 0; line-height: 1.5; text-align: center; }
+        .legend { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; font-size: 10.5px; color: #aaa; margin: 0 0 18px; }
+        .legend i { display: inline-block; width: 12px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+        /* Desktop: journey map (left) + template library (right) */
+        @media (min-width: 1100px) {
+            .container { max-width: 1240px; }
+            .two-col { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+            .col-lib > .section-title:first-child { margin-top: 30px !important; }
+        }
+        @media (max-width: 560px) {
+            body { padding: 20px 10px; }
+            .container { padding: 22px 14px; }
+            .branches { flex-direction: column; gap: 18px; }
+            .branch { width: 100%; }
+            .week { grid-template-columns: repeat(2, 1fr); }
+            .day { min-height: 0; }
+            .triggers { grid-template-columns: 1fr; }
+            .ladder .arrow { transform: rotate(90deg); flex-basis: 100%; text-align: center; }
+            .ladder .node { flex-basis: 100%; }
+        }
+        /* ===== Featured newsletter showcase ===== */
+        .featured { position: relative; margin: 6px 0 34px; padding: 26px; border-radius: 18px;
+            background: radial-gradient(ellipse at 20% 0%, rgba(83, 253, 202,0.16) 0%, rgba(83, 253, 202,0) 60%), linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
+            border: 1px solid rgba(83, 253, 202,0.35); box-shadow: 0 0 30px rgba(83, 253, 202,0.12);
+            display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 34px; align-items: center; }
+        .feat-phone { position: relative; width: 300px; height: 580px; border-radius: 38px; padding: 12px; background: #050505;
+            border: 1px solid rgba(83, 253, 202,0.45); box-shadow: 0 18px 50px rgba(0,0,0,0.6), 0 0 0 5px #1b1b1b, 0 0 30px rgba(83, 253, 202,0.18); }
+        .feat-phone::before { content: ""; position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 84px; height: 18px; border-radius: 12px; background: #050505; z-index: 3; }
+        .feat-screen { position: relative; width: 276px; height: 556px; border-radius: 28px; overflow: hidden; background: #0f0f0f; }
+        .feat-screen iframe { position: absolute; top: 34px; left: 0; width: 375px; height: 710px; border: 0; transform: scale(0.736); transform-origin: top left; background: #0b0b0b; }
+        .feat-hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 600; letter-spacing: .5px; color: #0b0b0b;
+            background: rgba(83, 253, 202,0.92); padding: 4px 10px; border-radius: 20px; z-index: 4; pointer-events: none; transition: opacity .3s; }
+        .feat-phone:hover .feat-hint { opacity: 0; }
+        .feat-kicker { font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #53FDCA; margin: 0 0 8px; }
+        .feat-title { font-size: 30px; font-weight: 800; line-height: 1.15; margin: 0 0 12px; }
+        .feat-title span { color: #53FDCA; text-shadow: 0 0 12px rgba(83, 253, 202,0.45); }
+        .feat-text { font-size: 14px; color: #cfcfcf; line-height: 1.7; margin: 0 0 16px; max-width: 460px; }
+        .feat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+        .feat-chips span { font-size: 12px; font-weight: 600; color: #fff; background: rgba(83, 253, 202,0.08); border: 1px solid rgba(83, 253, 202,0.35); border-radius: 20px; padding: 5px 12px; }
+        .feat-meta { font-size: 12px; color: #9a9a9a; margin: 0 0 20px; line-height: 1.6; }
+        .feat-meta strong { color: #53FDCA; font-weight: 600; }
+        .feat-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+        .feat-btn { display: inline-block; padding: 12px 26px; border-radius: 50px; font-weight: 700; font-size: 14px; text-decoration: none; }
+        .feat-btn.primary { color: #000; background: linear-gradient(180deg, #8CFFDF 0%, #2FD6A8 100%); box-shadow: 0 0 22px rgba(83, 253, 202,0.45); }
+        .feat-btn.ghost { color: #53FDCA; border: 1px solid rgba(83, 253, 202,0.55); }
+        .feat-btn:hover { transform: translateY(-1px); }
+        @media (max-width: 760px) {
+            .featured { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 22px 16px; gap: 22px; }
+            .feat-text { margin-left: auto; margin-right: auto; }
+            .feat-chips, .feat-btns { justify-content: center; }
+            .feat-title { font-size: 25px; }
+        }
+        /* ===== Strategy sections ===== */
+        .strategy { margin: 34px 0 0; }
+        .strategy .lead { font-size: 13px; color: #bbb; line-height: 1.7; margin: 0 0 14px; max-width: 900px; }
+        .strat-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid rgba(83, 253, 202,0.25); border-radius: 12px; overflow: hidden; font-size: 13px; }
+        .strat-table th { text-align: left; background: rgba(83, 253, 202,0.10); color: #53FDCA; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; padding: 10px 12px; }
+        .strat-table td { padding: 11px 12px; border-top: 1px solid rgba(83, 253, 202,0.12); color: #ddd; vertical-align: top; line-height: 1.55; }
+        .strat-table td:first-child { color: #fff; font-weight: 700; white-space: nowrap; }
+        .strat-table .num { color: #53FDCA; font-weight: 700; white-space: nowrap; }
+        .strat-note { font-size: 12px; color: #999; margin: 10px 0 0; line-height: 1.6; }
+        .how-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 14px; }
+        .how { background: rgba(83, 253, 202,0.05); border: 1px solid rgba(83, 253, 202,0.2); border-radius: 12px; padding: 14px 16px; }
+        .how b { display: block; color: #53FDCA; font-size: 13px; margin-bottom: 6px; }
+        .how p { margin: 0; font-size: 12.5px; color: #ccc; line-height: 1.6; }
+        .how code { font-size: 11px; color: #fff; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; word-break: break-all; }
+        @media (max-width: 760px) {
+            .how-grid { grid-template-columns: 1fr; }
+            .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .strat-table { min-width: 620px; }
+        }
+        .switch { text-align: center; margin: -18px 0 26px; }
+        .switch a { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .5px; color: #53FDCA; border: 1px solid rgba(83, 253, 202,.45); border-radius: 20px; padding: 5px 14px; text-decoration: none; margin: 0 4px; }
+        .switch a.on { background: #53FDCA; color: #0b0b0b; }
+    
+        .switch { text-align: center; margin: -18px 0 26px; }
+        .switch a { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .5px; color: #53FDCA; border: 1px solid rgba(83, 253, 202,.45); border-radius: 20px; padding: 5px 14px; text-decoration: none; margin: 0 4px; }
+        .switch a.on { background: #53FDCA; color: #0b0b0b; }
+        .diff-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+        .diff { background: rgba(83, 253, 202,0.05); border: 1px solid rgba(83, 253, 202,0.2); border-radius: 12px; padding: 14px 16px; }
+        .diff b { display: block; color: #53FDCA; font-size: 13px; margin-bottom: 6px; }
+        .diff p { margin: 0; font-size: 12.5px; color: #ccc; line-height: 1.6; }
+        .guard { background: rgba(255,110,110,0.06); border: 1px dashed rgba(255,110,110,0.55); border-radius: 12px; padding: 12px 14px; margin: 0 0 18px; }
+        .guard b { color: #ff9c9c; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 6px; text-align: center; }
+        .guard ul { margin: 0; padding-left: 18px; font-size: 11.5px; color: #ddd; line-height: 1.6; }
+        .subj { display: block; font-size: 11.5px; color: #53FDCA; margin-top: 6px; font-weight: 500; }
+        .tag { display: inline-block; font-size: 9.5px; font-weight: 800; letter-spacing: .6px; text-transform: uppercase; border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: 1px; }
+        .tag.p1 { color: #ff9c9c; border: 1px solid rgba(255,110,110,.55); }
+        .tag.p2 { color: #53FDCA; border: 1px solid rgba(83, 253, 202,.55); }
+        .tag.p3 { color: #9fd3ff; border: 1px solid rgba(120,180,255,.5); }
+        .tag.svc { color: #cbbcff; border: 1px solid rgba(170,140,255,.6); }
+        .qlist { margin: 0; padding-left: 20px; font-size: 13px; color: #ddd; line-height: 1.7; }
+        .qlist li { margin-bottom: 6px; }
+        .src { font-size: 11.5px; color: #999; line-height: 1.7; word-break: break-word; }
+        .src a { color: #53FDCA; text-decoration: none; }
+        @media (max-width: 900px) { .diff-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 560px) { .diff-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="img/rapidpace-logo.png" alt="Rapidpace" class="logo" style="width:200px;">
+        <h1>Rapidpace US CRM Plan</h1>
+        <div class="subtitle">Sweepstakes Journeys, Segments &amp; Email Templates</div>
+        <div class="switch"><a href="index.html">Casino (crypto + fiat)</a><a href="sports.html">Sportsbook</a><a class="on" href="sweeps.html">US Sweepstakes</a></div>
+
+        <section class="featured" aria-label="Featured email: The Rapidpace US Weekly">
+            <div class="feat-phone">
+                <div class="feat-screen"><iframe src="sweeps-newsletter-weekly.html" title="The Rapidpace US Weekly preview" loading="lazy" onload="try{var d=this.contentDocument,st=d.createElement('style');st.textContent='html{scrollbar-width:none;overflow-x:hidden}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;height:0}';d.head.appendChild(st);}catch(e){}"></iframe></div>
+                <span class="feat-hint">Scroll to explore ↕</span>
+            </div>
+            <div class="feat-copy">
+                <p class="feat-kicker">★ Featured email</p>
+                <h2 class="feat-title">The Rapidpace US <span>Weekly</span></h2>
+                <p class="feat-text">A sweepstakes brand lives on habit, not deposits. The Weekly keeps every player, buyer or not, close to the lobby: the Top 10, a free-coins checklist (daily login, Daily Spin, Facebook giveaways, mail-in), a quick-play spotlight and the promo calendar.</p>
+                <div class="feat-chips"><span>🔥 Top 10</span><span>🪙 Free coins</span><span>⚡ Quick-play</span><span>📅 Calendar</span></div>
+                <p class="feat-meta">Sent Thursdays to all opted-in players in eligible states · <strong>Swap the games each issue</strong> · Where Flow 1 hands players off on Day 7</p>
+                <div class="feat-btns">
+                    <a class="feat-btn primary" href="sweeps-newsletter-weekly.html">Open the Weekly →</a>
+                    <a class="feat-btn ghost" href="#journey">See the journeys</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="strategy" style="margin-top:0">
+            <div class="section-title">🇺🇸 Why sweeps CRM is different</div>
+            <p class="lead">Rapidpace US runs on the dual-currency sweepstakes model: players never deposit or cash out. They play with free or purchased Gold Coins, and with Sweeps Coins that are always free and can be redeemed for prizes. That changes the words, the offers, the data and the rules of every email.</p>
+            <div class="diff-grid"><div class="diff"><b>Two coins, not cash</b><p>Gold Coins are for fun; Sweeps Coins are the sweepstakes entry and are always free. Emails sell <em>Gold Coin packages</em> and never SC.</p></div><div class="diff"><b>No purchase necessary</b><p>Every promo email carries the NPN block, links the Sweepstakes Rules and mentions free routes (daily login, mail-in).</p></div><div class="diff"><b>Different vocabulary</b><p>Purchase, play, redeem, prizes. Never deposit, bet, wager, cash out, withdraw or gamble.</p></div><div class="diff"><b>21+ and state-gated</b><p>15 excluded states (Oklahoma's ban takes effect 1 Nov 2026) and more bills expected in 2027. Suppress by residence state on every send, so new bans are covered.</p></div><div class="diff"><b>No loss-chasing</b><p>The Responsible Gambling page promises no promotions that reward chasing a loss, so no loss-based cashback or "win it back" copy.</p></div><div class="diff"><b>KYC before redemption</b><p>Light check at sign-up, full KYC before the first redemption. "Verify early" nudges are a core CRM job.</p></div><div class="diff"><b>Taxes and service notices</b><p>$2,000/yr triggers W-9 + 1099-MISC; 11-month dormancy and state-exit emails are required by the site's own terms.</p></div><div class="diff"><b>Free players matter</b><p>Most players never buy. Daily-login habit and referrals are the growth engine; purchases follow engagement.</p></div></div>
+        </section>
+
+        <div class="two-col" style="margin-top:34px">
+        <div class="col-map">
+        <div class="section-title" id="journey">🗺️ Player Journey Map</div>
+        <p class="map-intro">What each player receives and when. Tap any gold card to open that email.</p>
+        <div class="legend"><span><i style="background:rgba(83, 253, 202,.3);border:1px solid #53FDCA"></i>Email</span><span><i style="border:1px dashed #cbbcff"></i>CRM check</span><span><i style="border:1px dashed #ff9c9c"></i>Flow ends</span></div>
+        
+        <div class="guard"><b>⛔ Checked before every promotional send</b>
+            <ul>
+                <li>Residence state is eligible (not CA, CT, ID, IN, IA, LA, ME, MI, MT, NV, NJ, NY, OK, TN, WA). Sign-up and login geolocation already block these states; this catches players whose state bans sweepstakes after they signed up, like Oklahoma from 1 Nov 2026.</li>
+                <li>Not in cool-off, self-exclusion or closed; not suspended or under review. No promos for 30 days after an exclusion ends.</li>
+                <li>Not unsubscribed from marketing emails (the site has no opt-in; its Privacy Policy sends marketing unless you opt out); age verified 21+; not a test account.</li>
+                <li>Purchase offers skip anyone who has hit or set a purchase limit, and anyone flagged for rapid purchase escalation.</li>
+            </ul>
+            <p style="margin:8px 0 0;font-size:11px;color:#bbb;text-align:center">Service emails (7, 15, 16) skip the unsubscribe, state and RG checks: they must reach every affected account, including unsubscribed and self-excluded players, and carry no promotional content.</p>
+        </div>
+        <div class="map-block">
+            <div class="map-label">Flow 1 · New Player Activation</div>
+            <div class="flow">
+                <div class="node start"><span class="what">Player signs up</span><span class="hook">Sign Up event · eligible state · 21+ · email consent</span></div>
+                <div class="wire"><span>Immediately</span></div>
+                <a class="node email" href="sweeps-welcome.html"><span class="when">Email 1 · Day 0</span><span class="what">Welcome to Rapidpace US</span><span class="hook">50,000 GC + 1 SC · how GC and SC work</span></a>
+                <div class="wire"><span>Wait 1 day</span></div><div class="node check">Purchased yet?</div><div class="wire"><span>No</span></div>
+                <a class="node email" href="sweeps-daily-coins-day1.html"><span class="when">Email 2 · Day 1</span><span class="what">Your Free Daily Coins</span><span class="hook">Daily login + Daily Spin + free SC routes</span></a>
+                <div class="wire"><span>Wait 2 days</span></div><div class="node check">Purchased yet?</div><div class="wire"><span>No</span></div>
+                <a class="node email" href="sweeps-how-it-works-day3.html"><span class="when">Email 3 · Day 3</span><span class="what">How Prizes Work</span><span class="hook">SC → play → verify → redeem · verify early</span></a>
+                <div class="wire"><span>Wait 2 days</span></div><div class="node check">Purchased yet?</div><div class="wire"><span>No</span></div>
+                <a class="node email" href="sweeps-first-purchase-offer-day5.html"><span class="when">Email 4 · Day 5</span><span class="what">First Purchase Bonus</span><span class="hook">$10 → 30 free SC · choose 1 of 3 packages</span></a>
+                <div class="wire"><span>Wait 2 days</span></div><div class="node check">Purchased yet?</div><div class="wire"><span>No</span></div>
+                <a class="node email" href="sweeps-welcome-recap-day7.html"><span class="when">Email 5 · Day 7</span><span class="what">Welcome Recap</span><span class="hook">Everything waiting · hands off to the Weekly</span></a>
+                <div class="wire"></div><div class="node end">Joins The Rapidpace US Weekly</div>
+                <div class="jump">★ Any "Yes" → exits Flow 1 and enters Flow 2 (First Purchase)</div>
+            </div>
+        </div>
+        <div class="map-block">
+            <div class="map-label">Flow 2 · First Purchase → First Redemption</div>
+            <div class="flow">
+                <div class="node start"><span class="what">First Gold Coin purchase</span><span class="hook">purchase event · purchase_count = 1</span></div>
+                <div class="wire"><span>1 hour after the platform receipt</span></div>
+                <a class="node email" href="sweeps-first-purchase-thanks.html"><span class="when">Email 6 · +1h</span><span class="what">Thanks for Your First Purchase</span><span class="hook">How to play SC · 1x play-through · set a limit</span></a>
+                <div class="wire"><span>Whenever it becomes true</span></div><div class="node check">SC redeemable ≥ minimum AND not verified</div><div class="wire"><span>Yes</span></div>
+                <a class="node email" href="sweeps-verify-to-redeem.html"><span class="when">Email 7 · trigger</span><span class="what">Verify to Redeem</span><span class="hook">Document checklist · timings</span></a>
+                <div class="wire"><span>First redemption paid</span></div>
+                <a class="node email" href="sweeps-first-redemption.html"><span class="when">Email 8 · +24h</span><span class="what">First Redemption</span><span class="hook">Timings · $2,000 W-9 note · VIP teaser</span></a>
+            </div>
+        </div>
+        <div class="map-block">
+            <div class="map-label">Flow 3 · VIP (triggered)</div>
+            <div class="triggers">
+                <div class="trigger"><div class="node check">VIP level increases</div><div class="wire"></div><a class="node email" href="sweeps-vip-level-up.html"><span class="when">Level up</span><span class="what">New VIP Level</span><span class="hook">Level-up SC + bigger Coinback</span></a></div>
+                <div class="trigger"><div class="node check">Coinback credited · Wed 9:00 AM PT</div><div class="wire"></div><a class="node email" href="sweeps-weekly-coinback.html"><span class="when">Every Wednesday</span><span class="what">Weekly Coinback</span><span class="hook">Coinback by level</span></a></div>
+            </div>
+        </div>
+        <div class="map-block">
+            <div class="map-label">Weekly Calendar · all opted-in players</div>
+            <div class="week">
+                <div class="day"><b>Mon</b></div>
+                <div class="day"><b>Tue</b><a class="chip" href="sweeps-refer-a-friend.html">Refer &amp; Earn (1st Tue of the month)</a></div>
+                <div class="day"><b>Wed</b><a class="chip vip" href="sweeps-weekly-coinback.html">Weekly Coinback (triggered)</a></div>
+                <div class="day"><b>Thu</b><a class="chip" href="sweeps-newsletter-weekly.html">The Rapidpace US Weekly</a></div>
+                <div class="day"><b>Fri</b></div>
+                <div class="day"><b>Sat</b></div>
+                <div class="day"><b>Sun</b></div>
+            </div>
+            <p class="map-note">Cap promotional emails at 3 per player per week (service emails don't count). Flow 1 is the one exception: new players get the 5 onboarding emails instead, and join the Weekly only after Day 7. Weekends stay free for future timed events.</p>
+        </div>
+        <div class="map-block">
+            <div class="map-label">Lifecycle Triggers · win-back, service &amp; compliance</div>
+            <div class="triggers">
+                <div class="trigger"><div class="node check">Active player, no login for 3 days</div><div class="wire"></div><a class="node email" href="sweeps-come-back-3d.html"><span class="when">Early nudge</span><span class="what">Daily Coins Waiting</span><span class="hook">Free daily coins · no offer</span></a></div>
+                <div class="trigger"><div class="node check">No login for 30 days</div><div class="wire"></div><a class="node email" href="sweeps-lapsed-30d.html"><span class="when">Win-back</span><span class="what">Daily Coins Still Here</span><span class="hook">Optional small free SC gift · RG-gated</span></a></div>
+                <div class="trigger"><div class="node check">No login for 11 months</div><div class="wire"></div><a class="node email" href="sweeps-dormancy-notice.html"><span class="when">Required notice</span><span class="what">Keep Account Active</span><span class="hook">Terms: email before inactivity</span></a></div>
+                <div class="trigger"><div class="node check">State becomes ineligible</div><div class="wire"></div><a class="node email" href="sweeps-state-eligibility.html"><span class="when">Required notice</span><span class="what">State Update</span><span class="hook">Dated purchase / play / redeem window</span></a></div>
+            </div>
+        </div>
+        </div>
+        <div class="col-lib">
+        <div class="section-title" style="margin-top:34px;">📂 Template Library</div>
+        <p class="template-desc" style="margin:-6px 0 14px;">16 templates, US English. Suggested subject under each; the preview text is built into every HTML.</p>
+        
+        <div class="section-title">🎁 Flow 1 · Activation</div>
+        <ul class="template-list">
+            <li class="template-item"><a href="sweeps-welcome.html" class="template-link">1. Welcome to Rapidpace US — Day 0<div class="template-desc">Sent on sign-up. Welcome coins (50,000 GC + 1 SC, credited at sign-up), the two coins explained, free daily coins, and a soft mention of the First Purchase Bonus.</div><span class="subj">Subject: Welcome to Rapidpace US 🦁</span></a></li>
+            <li class="template-item"><a href="sweeps-daily-coins-day1.html" class="template-link">2. Your Free Daily Coins — Day 1<div class="template-desc">Builds the daily-login habit. The four free ways to collect SC (daily login, Daily Spin, Facebook giveaways, mail-in) and the Top 10.</div><span class="subj">Subject: Your free daily coins are ready</span></a></li>
+            <li class="template-item"><a href="sweeps-how-it-works-day3.html" class="template-link">3. How Prizes Work — Day 3<div class="template-desc">Sweeps Coins 101: collect → play → verify → redeem. Pushes early identity verification, the main cause of delayed first redemptions.</div><span class="subj">Subject: How Sweeps Coins and prizes work</span></a></li>
+            <li class="template-item"><a href="sweeps-first-purchase-offer-day5.html" class="template-link">4. First Purchase Bonus — Day 5<div class="template-desc">The three welcome packages ($10 / $25 / $50, choose one). Clear that SC are free, a purchase does not improve chances, and limits are available.</div><span class="subj">Subject: A welcome boost for your first package</span></a></li>
+            <li class="template-item"><a href="sweeps-welcome-recap-day7.html" class="template-link">5. Welcome Recap — Day 7<div class="template-desc">Honest last onboarding email: everything waiting in the account, no fake deadline. Hands the player off to the Weekly.</div><span class="subj">Subject: Everything waiting in your account</span></a></li>
+        </ul>
+        <div class="section-title">💳 Flow 2 · Purchase &amp; Redemption</div>
+        <ul class="template-list">
+            <li class="template-item"><a href="sweeps-first-purchase-thanks.html" class="template-link">6. Thanks for Your First Purchase — +1h<div class="template-desc">Complements the platform receipt: how to play SC, 1x play-through, verify now, purchase limits.</div><span class="subj">Subject: Thanks for your first purchase</span></a></li>
+            <li class="template-item"><a href="sweeps-verify-to-redeem.html" class="template-link">7. Verify to Redeem — trigger<span class="tag svc">Service</span><div class="template-desc">For players with a redeemable balance above the minimum who are not yet verified. Document checklist from the Customer Acceptance Policy. No promotional content.</div><span class="subj">Subject: One step before your first redemption</span></a></li>
+            <li class="template-item"><a href="sweeps-first-redemption.html" class="template-link">8. First Redemption — 24h after payout<div class="template-desc">Complements the platform payout email: timings, the $2,000 W-9 / 1099-MISC rule, VIP teaser.</div><span class="subj">Subject: Congrats on your first redemption</span></a></li>
+        </ul>
+        <div class="section-title">👑 Flow 3 · VIP</div>
+        <ul class="template-list">
+            <li class="template-item"><a href="sweeps-vip-level-up.html" class="template-link">9. New VIP Level<div class="template-desc">Triggered on level change. Level-up SC and Coinback by level (Bronze → Pinnacle), VIP host.</div><span class="subj">Subject: You've reached a new VIP level</span></a></li>
+            <li class="template-item"><a href="sweeps-weekly-coinback.html" class="template-link">10. Weekly Coinback<div class="template-desc">Triggered when Coinback is credited (Wednesdays 9:00 AM PT). Framed on play and VIP level, never on losses.</div><span class="subj">Subject: Your weekly Coinback is in</span></a></li>
+        </ul>
+        <div class="section-title">📰 Weekly &amp; Referral</div>
+        <ul class="template-list">
+            <li class="template-item"><a href="sweeps-newsletter-weekly.html" class="template-link">11. The Rapidpace US Weekly<div class="template-desc">Thursday roundup: Top 10, free-coins checklist (incl. mail-in), quick-play spotlight, promo calendar. Swap games each issue.</div><span class="subj">Subject: The Rapidpace US Weekly: top games and free coins</span></a></li>
+            <li class="template-item"><a href="sweeps-refer-a-friend.html" class="template-link">12. Refer &amp; Earn<div class="template-desc">Monthly to active players. The 5 steps from the promotions page and referral rate by VIP level.</div><span class="subj">Subject: Share Rapidpace US, get rewarded</span></a></li>
+        </ul>
+        <div class="section-title">⏳ Win-Back &amp; Compliance</div>
+        <ul class="template-list">
+            <li class="template-item"><a href="sweeps-come-back-3d.html" class="template-link">13. Daily Coins Waiting — 3 days quiet<div class="template-desc">Light nudge for active players: free daily coins and trending games, no purchase offer.</div><span class="subj">Subject: Your daily coins are waiting</span></a></li>
+            <li class="template-item"><a href="sweeps-lapsed-30d.html" class="template-link">14. Daily Coins Still Here — 30 days lapsed<div class="template-desc">Catch-up email. Reminds players that redeemable SC do not expire. Optional small free SC gift, RG-gated.</div><span class="subj">Subject: Your free daily coins are still here</span></a></li>
+            <li class="template-item"><a href="sweeps-dormancy-notice.html" class="template-link">15. Keep Your Account Active — 11 months<span class="tag svc">Service</span><div class="template-desc">Required by the General Terms ("we will email you before applying any inactivity measure").</div><span class="subj">Subject: Keep your Rapidpace US account active</span></a></li>
+            <li class="template-item"><a href="sweeps-state-eligibility.html" class="template-link">16. State Eligibility Update<span class="tag svc">Service</span><div class="template-desc">Required by the Customer Acceptance Policy when a state becomes ineligible. Dated close-down and redemption window, no promotional content.</div><span class="subj">Subject: Important update about your Rapidpace US account</span></a></li>
+        </ul>
+        </div>
+        </div>
+
+        <section class="strategy" id="segments">
+            <div class="section-title">👥 Player Segments</div>
+            <p class="lead">Value is measured by Gold Coin purchases in the last 30 days, with VIP level (based on SC played) layered on top. Review the thresholds after 4 weeks of data.</p>
+            <div class="table-scroll"><table class="strat-table "><thead><tr><th>Segment</th><th>Who</th><th>What they get</th><th>Promo emails / week</th></tr></thead><tbody><tr><td>🆕 New</td><td>Signed up in the last 7 days, no purchase</td><td>Flow 1 only</td><td>5 in 7 days (onboarding)</td></tr><tr><td>🎮 Free player</td><td>7+ days, no purchase, logged in in the last 30 days</td><td>Weekly, daily-coins nudges, referral; First Purchase Bonus reminder max once a month</td><td>1–2</td></tr><tr><td>🛒 Casual buyer</td><td>Purchases $1–$49 in the last 30 days</td><td>Weekly, Coinback, referral, standard packages</td><td>2</td></tr><tr><td>💎 Regular buyer</td><td>$50–$249 in the last 30 days</td><td>Everything above + VIP progress</td><td>2–3</td></tr><tr><td>👑 High value</td><td>$250+ in the last 30 days, or Platinum and up</td><td>VIP host contact, level-up, fewer mass promos</td><td>2 + host</td></tr><tr><td>⏳ Lapsed</td><td>No login for 30–180 days</td><td>Win-back only (email 14), then the Weekly once a month</td><td>≤1</td></tr><tr><td>💤 Dormant</td><td>No login for 11+ months</td><td>Dormancy notice only</td><td>0 (service)</td></tr></tbody></table></div>
+            <div style="height:14px"></div>
+            <div class="table-scroll"><table class="strat-table "><thead><tr><th>Extra segment</th><th>Rule</th><th>Use</th></tr></thead><tbody><tr><td>Redeem-ready</td><td>SC redeemable ≥ minimum AND KYC not approved</td><td>Email 7; also stops purchase promos until verified</td></tr><tr><td>Daily-habit</td><td>Logged in on 5+ of the last 7 days</td><td>Best audience for referral and VIP messages</td></tr><tr><td>Game type</td><td>Most-played category: Slots / Table (blackjack, roulette, baccarat, poker) / Quick-play (crash, plinko, mines, keno, scratch, wheel) / Shooting</td><td>Personalize the game tiles in the Weekly and win-back emails</td></tr><tr><td>RG watch</td><td>Purchase limit set or hit, 3+ purchases in 24h, or purchases 3x above their 30-day average</td><td>Excluded from all purchase offers; flagged to the RG team</td></tr><tr><td>Florida</td><td>Residence or geolocation = FL</td><td>Legal decision needed (FL AG lawsuits of 20 Aug 2026); keep a toggle ready</td></tr></tbody></table></div>
+        </section>
+
+
+        <section class="strategy" id="retention">
+            <div class="section-title">📊 Measuring Success</div>
+            <div class="table-scroll"><table class="strat-table "><thead><tr><th>Area</th><th>Metric</th><th>Why</th></tr></thead><tbody><tr><td>Activation</td><td>Sign-up → verified %, first SC play within 24h</td><td>Welcome coins land at sign-up, no verification needed</td></tr><tr><td>Habit</td><td>Daily login rate, D1 / D7 / D30 login retention</td><td>The free-play engine behind everything else</td></tr><tr><td>Conversion</td><td>First purchase by D7 / D30; welcome package mix ($10 / $25 / $50)</td><td>Flow 1 success</td></tr><tr><td>Monetization</td><td>Repeat purchase within 30 days, ARPPU, purchase frequency</td><td>Value of buyers</td></tr><tr><td>Redemption</td><td>KYC done before first redemption request; time to payout; prizes ÷ purchases</td><td>Experience and prize cost</td></tr><tr><td>Email health</td><td>Clicks per send, unsubscribe &lt; 0.3%, complaints &lt; 0.1%</td><td>Deliverability</td></tr><tr><td>Responsible play</td><td>Share of sends suppressed by RG rules; limit-setting rate; cool-offs within 48h of a promo</td><td>Shows promos are not doing harm</td></tr><tr><td>Proof</td><td>10% holdout on each flow; UTM campaign = <code>us-&lt;template&gt;</code></td><td>Measures true lift</td></tr></tbody></table></div>
+        </section>
+
+
+        <div class="footer">© 2026 Rapidpace • Demo content for illustration. The operator, offers and legal wording are fictional.</div>
+    </div>
+</body>
+</html>

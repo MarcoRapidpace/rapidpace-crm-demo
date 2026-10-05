@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Rapidpace CRM Demo · Sportsbook</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top, #2b2b2b 0%, #0b0b0b 100%);
+            font-family: 'Poppins', Arial, sans-serif;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 650px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
+            border: 1px solid rgba(83, 253, 202, 0.25);
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 0 25px rgba(83, 253, 202, 0.15);
+        }
+        .logo {
+            display: block;
+            width: 180px;
+            max-width: 55%;
+            height: auto;
+            margin: 0 auto 18px;
+        }
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            color: #ffffff;
+            text-align: center;
+            margin: 0 0 6px 0;
+        }
+        .subtitle {
+            font-size: 13px;
+            color: #53FDCA;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #53FDCA;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 30px 0 12px 0;
+            border-bottom: 1px dashed rgba(83, 253, 202, 0.3);
+            padding-bottom: 6px;
+        }
+        .template-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .template-item {
+            margin-bottom: 12px;
+        }
+        .template-link {
+            display: block;
+            background: rgba(83, 253, 202, 0.04);
+            border: 1px solid rgba(83, 253, 202, 0.3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .template-link:hover {
+            background: rgba(83, 253, 202, 0.12);
+            border-color: #53FDCA;
+            transform: translateY(-2px);
+        }
+        .template-link.upcoming {
+            border-style: dashed;
+            opacity: 0.6;
+            background: transparent;
+            cursor: default;
+            pointer-events: none;
+        }
+        .template-desc {
+            font-size: 12px;
+            color: #aaaaaa;
+            margin-top: 4px;
+            font-weight: 400;
+            line-height: 140%;
+        }
+        /* Multi-version card (used when a template has EN/ES or other variants) */
+        .template-card {
+            background: rgba(83, 253, 202, 0.04);
+            border: 1px solid rgba(83, 253, 202, 0.3);
+            border-radius: 10px;
+            padding: 14px 18px;
+            transition: all 0.2s ease;
+        }
+        .template-card:hover {
+            background: rgba(83, 253, 202, 0.08);
+            border-color: #53FDCA;
+        }
+        .template-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .template-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .lang-switch {
+            display: inline-flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .lang-pill {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #53FDCA;
+            border: 1px solid rgba(83, 253, 202, 0.45);
+            border-radius: 5px;
+            padding: 3px 9px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .lang-pill:hover {
+            background: #53FDCA;
+            color: #0b0b0b;
+        }
+        .footer {
+            text-align: center;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-top: 40px;
+            border-top: 1px solid rgba(83, 253, 202, 0.2);
+            padding-top: 20px;
+            line-height: 150%;
+        }
+
+        /* ===== Player journey map ===== */
+        .map-intro { font-size: 12px; color: #aaa; line-height: 1.6; margin: 0 0 16px; text-align: center; }
+        .map-block { background: rgba(255,255,255,0.02); border: 1px solid rgba(83, 253, 202,0.18); border-radius: 14px; padding: 18px 16px 20px; margin: 0 0 18px; }
+        .map-label { font-size: 11px; font-weight: 700; color: #53FDCA; text-transform: uppercase; letter-spacing: 1.2px; margin: 0 0 14px; text-align: center; }
+        .flow { display: flex; flex-direction: column; align-items: center; }
+        .node { display: block; width: 100%; max-width: 270px; box-sizing: border-box; border-radius: 10px; padding: 10px 12px; text-align: center; text-decoration: none; color: #fff; }
+        .node .when { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .6px; text-transform: uppercase; color: #0b0b0b; background: #53FDCA; border-radius: 20px; padding: 2px 8px; margin-bottom: 5px; }
+        .node .what { display: block; font-size: 13px; font-weight: 600; line-height: 1.35; }
+        .node .hook { display: block; font-size: 11px; color: #aaa; margin-top: 3px; line-height: 1.4; font-weight: 400; }
+        .node.start { background: #0b0b0b; border: 1px solid rgba(255,255,255,0.25); }
+        .node.email { background: rgba(83, 253, 202,0.07); border: 1px solid rgba(83, 253, 202,0.55); transition: all .15s ease; }
+        .node.email:hover { background: rgba(83, 253, 202,0.16); border-color: #53FDCA; transform: translateY(-1px); }
+        .node.email.optional { border-style: dashed; background: rgba(83, 253, 202,0.03); }
+        .node .when.opt { background: transparent; color: #53FDCA; border: 1px dashed rgba(83, 253, 202,0.7); }
+        .node.check { background: transparent; border: 1px dashed rgba(170,140,255,0.7); color: #cbbcff; font-size: 12px; font-weight: 600; max-width: 220px; }
+        .node.end { background: transparent; border: 1px dashed rgba(255,110,110,0.6); color: #ff9c9c; font-size: 11px; font-weight: 600; max-width: 170px; padding: 6px 10px; }
+        .node .pills { display: flex; gap: 6px; justify-content: center; margin-top: 6px; }
+        .node .pills a { font-size: 10px; font-weight: 700; color: #53FDCA; border: 1px solid rgba(83, 253, 202,.5); border-radius: 5px; padding: 2px 9px; text-decoration: none; }
+        .node .pills a:hover { background: #53FDCA; color: #0b0b0b; }
+        .wire { display: flex; flex-direction: column; align-items: center; color: rgba(83, 253, 202,0.7); font-size: 10px; letter-spacing: .4px; padding: 3px 0; }
+        .wire::before { content: ""; width: 1px; height: 14px; background: rgba(83, 253, 202,0.45); }
+        .wire span { padding: 2px 0 1px; color: #bbb; text-transform: uppercase; font-weight: 600; }
+        .wire::after { content: "▼"; font-size: 9px; line-height: 1; }
+        .branches { display: flex; gap: 12px; width: 100%; align-items: flex-start; margin-top: 2px; }
+        .branch { flex: 1; min-width: 0; display: flex; flex-direction: column; align-items: center; border-top: 1px solid rgba(83, 253, 202,0.35); padding-top: 8px; }
+        .branch-tag { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; border-radius: 4px; padding: 2px 8px; margin-bottom: 2px; }
+        .branch-tag.no { color: #ff9c9c; border: 1px solid rgba(255,110,110,.5); }
+        .branch-tag.yes { color: #8fe3a5; border: 1px solid rgba(110,220,140,.5); }
+        .jump { font-size: 10.5px; color: #8fe3a5; text-align: center; margin-top: 8px; line-height: 1.4; max-width: 240px; }
+        .ladder { display: flex; align-items: stretch; gap: 6px; flex-wrap: wrap; justify-content: center; }
+        .ladder .node { flex: 1 1 110px; max-width: none; }
+        .ladder .arrow { align-self: center; color: rgba(83, 253, 202,0.7); font-size: 12px; }
+        .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+        .day { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 6px 4px; min-height: 92px; display: flex; flex-direction: column; gap: 4px; }
+        .day b { font-size: 10px; color: #53FDCA; text-transform: uppercase; letter-spacing: .8px; text-align: center; }
+        .chip { display: block; font-size: 10px; line-height: 1.3; color: #fff; text-decoration: none; background: rgba(83, 253, 202,0.08); border: 1px solid rgba(83, 253, 202,0.4); border-radius: 6px; padding: 4px 5px; text-align: center; }
+        .chip:hover { background: rgba(83, 253, 202,0.2); }
+        .chip.vip { border-color: rgba(170,140,255,0.6); background: rgba(170,140,255,0.08); }
+        .triggers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .trigger:last-child:nth-child(odd) { grid-column: 1 / -1; }
+        .trigger { display: flex; flex-direction: column; align-items: center; }
+        .map-note { font-size: 10.5px; color: #888; margin: 12px 0 0; line-height: 1.5; text-align: center; }
+        .legend { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; font-size: 10.5px; color: #aaa; margin: 0 0 18px; }
+        .legend i { display: inline-block; width: 12px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+        /* Desktop: journey map (left) + template library (right) */
+        @media (min-width: 1100px) {
+            .container { max-width: 1240px; }
+            .two-col { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+            .col-lib > .section-title:first-child { margin-top: 30px !important; }
+        }
+        @media (max-width: 560px) {
+            body { padding: 20px 10px; }
+            .container { padding: 22px 14px; }
+            .branches { flex-direction: column; gap: 18px; }
+            .branch { width: 100%; }
+            .week { grid-template-columns: repeat(2, 1fr); }
+            .day { min-height: 0; }
+            .triggers { grid-template-columns: 1fr; }
+            .ladder .arrow { transform: rotate(90deg); flex-basis: 100%; text-align: center; }
+            .ladder .node { flex-basis: 100%; }
+        }
+        /* ===== Featured newsletter showcase ===== */
+        .featured { position: relative; margin: 6px 0 34px; padding: 26px; border-radius: 18px;
+            background: radial-gradient(ellipse at 20% 0%, rgba(83, 253, 202,0.16) 0%, rgba(83, 253, 202,0) 60%), linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
+            border: 1px solid rgba(83, 253, 202,0.35); box-shadow: 0 0 30px rgba(83, 253, 202,0.12);
+            display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 34px; align-items: center; }
+        .feat-phone { position: relative; width: 300px; height: 580px; border-radius: 38px; padding: 12px; background: #050505;
+            border: 1px solid rgba(83, 253, 202,0.45); box-shadow: 0 18px 50px rgba(0,0,0,0.6), 0 0 0 5px #1b1b1b, 0 0 30px rgba(83, 253, 202,0.18); }
+        .feat-phone::before { content: ""; position: absolute; top: 18px; left: 50%; transform: translateX(-50%); width: 84px; height: 18px; border-radius: 12px; background: #050505; z-index: 3; }
+        .feat-screen { position: relative; width: 276px; height: 556px; border-radius: 28px; overflow: hidden; background: #0f0f0f; }
+        .feat-screen iframe { position: absolute; top: 34px; left: 0; width: 375px; height: 710px; border: 0; transform: scale(0.736); transform-origin: top left; background: #0b0b0b; }
+        .feat-hint { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 600; letter-spacing: .5px; color: #0b0b0b;
+            background: rgba(83, 253, 202,0.92); padding: 4px 10px; border-radius: 20px; z-index: 4; pointer-events: none; transition: opacity .3s; }
+        .feat-phone:hover .feat-hint { opacity: 0; }
+        .feat-kicker { font-size: 11px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; color: #53FDCA; margin: 0 0 8px; }
+        .feat-title { font-size: 30px; font-weight: 800; line-height: 1.15; margin: 0 0 12px; }
+        .feat-title span { color: #53FDCA; text-shadow: 0 0 12px rgba(83, 253, 202,0.45); }
+        .feat-text { font-size: 14px; color: #cfcfcf; line-height: 1.7; margin: 0 0 16px; max-width: 460px; }
+        .feat-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+        .feat-chips span { font-size: 12px; font-weight: 600; color: #fff; background: rgba(83, 253, 202,0.08); border: 1px solid rgba(83, 253, 202,0.35); border-radius: 20px; padding: 5px 12px; }
+        .feat-meta { font-size: 12px; color: #9a9a9a; margin: 0 0 20px; line-height: 1.6; }
+        .feat-meta strong { color: #53FDCA; font-weight: 600; }
+        .feat-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+        .feat-btn { display: inline-block; padding: 12px 26px; border-radius: 50px; font-weight: 700; font-size: 14px; text-decoration: none; }
+        .feat-btn.primary { color: #000; background: linear-gradient(180deg, #8CFFDF 0%, #2FD6A8 100%); box-shadow: 0 0 22px rgba(83, 253, 202,0.45); }
+        .feat-btn.ghost { color: #53FDCA; border: 1px solid rgba(83, 253, 202,0.55); }
+        .feat-btn:hover { transform: translateY(-1px); }
+        @media (max-width: 760px) {
+            .featured { grid-template-columns: 1fr; justify-items: center; text-align: center; padding: 22px 16px; gap: 22px; }
+            .feat-text { margin-left: auto; margin-right: auto; }
+            .feat-chips, .feat-btns { justify-content: center; }
+            .feat-title { font-size: 25px; }
+        }
+        /* ===== Strategy sections ===== */
+        .strategy { margin: 34px 0 0; }
+        .strategy .lead { font-size: 13px; color: #bbb; line-height: 1.7; margin: 0 0 14px; max-width: 900px; }
+        .strat-table { width: 100%; border-collapse: separate; border-spacing: 0; border: 1px solid rgba(83, 253, 202,0.25); border-radius: 12px; overflow: hidden; font-size: 13px; }
+        .strat-table th { text-align: left; background: rgba(83, 253, 202,0.10); color: #53FDCA; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; padding: 10px 12px; }
+        .strat-table td { padding: 11px 12px; border-top: 1px solid rgba(83, 253, 202,0.12); color: #ddd; vertical-align: top; line-height: 1.55; }
+        .strat-table td:first-child { color: #fff; font-weight: 700; white-space: nowrap; }
+        .strat-table .num { color: #53FDCA; font-weight: 700; white-space: nowrap; }
+        .strat-note { font-size: 12px; color: #999; margin: 10px 0 0; line-height: 1.6; }
+        .how-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 14px; }
+        .how { background: rgba(83, 253, 202,0.05); border: 1px solid rgba(83, 253, 202,0.2); border-radius: 12px; padding: 14px 16px; }
+        .how b { display: block; color: #53FDCA; font-size: 13px; margin-bottom: 6px; }
+        .how p { margin: 0; font-size: 12.5px; color: #ccc; line-height: 1.6; }
+        .how code { font-size: 11px; color: #fff; background: rgba(255,255,255,0.06); padding: 1px 5px; border-radius: 4px; word-break: break-all; }
+        @media (max-width: 760px) {
+            .how-grid { grid-template-columns: 1fr; }
+            .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .strat-table { min-width: 620px; }
+        }
+        .switch { text-align: center; margin: -18px 0 26px; }
+        .switch a { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .5px; color: #53FDCA; border: 1px solid rgba(83, 253, 202,.45); border-radius: 20px; padding: 5px 14px; text-decoration: none; margin: 0 4px; }
+        .switch a.on { background: #53FDCA; color: #0b0b0b; }
+    </style>
+</head>
+<body>
+<div class="container">
+<img src="img/rapidpace-logo.png" alt="Rapidpace" class="logo" style="width:200px;">
+<h1>Rapidpace Sportsbook · CRM Flow</h1>
+<div class="subtitle">Email Campaign Previews &amp; Player Journey</div>
+<div class="switch"><a href="index.html">Casino (crypto + fiat)</a><a class="on" href="sports.html">Sportsbook</a><a href="sweeps.html">US Sweepstakes</a></div>
+<section class="featured" aria-label="Featured email: This Week at Rapidpace">
+<div class="feat-phone">
+<div class="feat-screen"><iframe src="sports-weekly-newsletter.html" title="Weekly newsletter preview" loading="lazy" onload="try{var d=this.contentDocument,st=d.createElement('style');st.textContent='html{scrollbar-width:none;overflow-x:hidden}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;height:0}';d.head.appendChild(st);}catch(e){}"></iframe></div>
+<span class="feat-hint">Scroll to explore ↕</span>
+</div>
+<div class="feat-copy">
+<p class="feat-kicker">★ Featured email</p>
+<h2 class="feat-title">This Week at <span>Rapidpace</span></h2>
+<p class="feat-text">One modular email a week that keeps sportsbook players close to the action: the big match of the week with its boosts, the Originals spotlight and every promotion on the calendar.</p>
+<div class="feat-chips"><span>⚽ Match of the week</span><span>🎯 ACCA boosts</span><span>🎰 Originals spotlight</span><span>📅 Promo calendar</span></div>
+<p class="feat-meta">Sent weekly to all opted-in players · <strong>Swap the match block each issue</strong> · Also the hand-off point after the final onboarding reminder</p>
+<div class="feat-btns">
+<a class="feat-btn primary" href="sports-weekly-newsletter.html">Open the newsletter →</a>
+<a class="feat-btn ghost" href="#journey">See where it fits in the flow</a>
+</div>
+</div>
+</section>
+<div class="two-col">
+<div class="col-map">
+<div class="section-title" id="journey">🗺️ Player Journey Map</div>
+<p class="map-intro">What each player receives and when. Tap any mint card to open that email.</p>
+<div class="legend"><span><i style="background:rgba(83,253,202,.25);border:1px solid #53FDCA"></i>Email</span><span><i style="border:1px dashed #b9a6ff"></i>CRM check</span><span><i style="border:1px dashed #ff8a8a"></i>Flow ends</span></div>
+<div class="map-block"><div class="map-label">Flow 1 · New Registrations Onboarding</div><div class="flow"><div class="node start"><span class="what">Player registers</span><span class="hook">Enters "New Registrations Onboarding"</span></div><div class="wire"></div><div class="node check">Has the player deposited?</div><div class="branches"><div class="branch"><span class="branch-tag no">No</span><div class="wire"><span>Immediately</span></div><a class="node email" href="sports-welcome.html"><span class="when">Email 1 · Day 0</span><span class="what">Welcome + 100% Match</span><span class="hook">100% sportsbook match up to $500 + free spins · crypto or fiat</span></a><div class="wire"><span>Wait 1 day</span></div><div class="node check">Deposited yet?</div><div class="wire"><span>No</span></div><a class="node email" href="sports-reg-no-deposit-1st.html"><span class="when">Email 2 · Day 1</span><span class="what">1st Reminder</span><span class="hook">Pushes the deposit match</span></a><div class="wire"><span>Wait 2 days</span></div><div class="node check">Deposited yet?</div><div class="wire"><span>No</span></div><a class="node email" href="sports-reg-no-deposit-2nd-wallet-guide.html"><span class="when">Email 2b · Day 3</span><span class="what">Wallet Guide</span><span class="hook">Assisted onboarding: crypto and Web3 wallet walkthrough</span></a><div class="wire"><span>Wait 2 days</span></div><div class="node check">Deposited yet?</div><div class="wire"><span>No</span></div><a class="node email" href="sports-card-bank-onramp-day1.html"><span class="when">Email 2c · Day 5</span><span class="what">Card &amp; Bank On-ramp</span><span class="hook">Removes the crypto barrier: card, Apple Pay, bank</span></a><div class="wire"><span>Wait 2 days</span></div><div class="node check">Deposited yet?</div><div class="wire"><span>No</span></div><a class="node email" href="sports-reg-no-deposit-3rd.html"><span class="when">Email 3 · Day 7</span><span class="what">Your Bonus Is Still Reserved</span><span class="hook">Big wins + reserved bonus · no fake deadline</span></a><div class="wire"><span>Wait 3 days</span></div><div class="node check">Deposited yet?</div><div class="wire"><span>No</span></div><a class="node email" href="sports-reg-no-deposit-final.html"><span class="when">Email 3b · Day 10</span><span class="what">Final Reminder</span><span class="hook">Ecosystem showcase: sports, casino, prediction markets</span></a><div class="wire"></div><div class="node end">End · player moves to the Weekly Newsletter</div><div class="jump">↗ A “Yes” at any check moves the player onto the deposit track</div></div><div class="branch"><span class="branch-tag yes">Yes</span><div class="wire"><span>On first deposit</span></div><a class="node email" href="sports-deposit-completed.html"><span class="when">Email 4 · Deposit #1</span><span class="what">Bonus Unlocked</span><span class="hook">Confirms the bonus is active · follows the platform receipt</span></a><div class="wire"><span>Wait 24 hours</span></div><div class="node check">Still active?</div><div class="wire"><span>Yes</span></div><a class="node email" href="sports-post-first-deposit-day1.html"><span class="when">Email 4b · Day 1</span><span class="what">Originals &amp; Live Tables</span><span class="hook">Spotlights Originals, live tables and popular slots</span></a><div class="wire"><span>Wait 3 days</span></div><div class="node check">Exactly 1 deposit?</div><div class="wire"><span>Yes</span></div><a class="node email" href="sports-second-deposit-nudge.html"><span class="when">Email 4c · Day 4</span><span class="what">Second Deposit Nudge</span><span class="hook">Gets the player to reload</span></a><div class="wire"></div><div class="node end">End · deposit #2 has its own flow ↓</div><div class="jump">★ First deposit of $500+? The player also enters the VIP flow</div></div></div></div></div>
+<div class="map-block"><div class="map-label">Flows 2–4 · Deposit Ladder (one flow per deposit)</div><div class="ladder"><a class="node email" href="sports-deposit-completed.html"><span class="when">1st deposit</span><span class="what">Email 4 · Bonus Unlocked</span><span class="hook">Welcome package active</span></a><span class="arrow">▶</span><a class="node email" href="sports-second-deposit-nudge.html"><span class="when">No 2nd deposit</span><span class="what">Email 4c · Reload Nudge</span><span class="hook">Nudge after the first deposit</span></a><span class="arrow">▶</span><a class="node email" href="sports-post-3rd-deposit-acca-boost.html"><span class="when">3rd deposit</span><span class="what">Email 5 · ACCA Boost</span><span class="hook">Multi-vertical play · combo boosts</span></a><span class="arrow">▶</span><a class="node email" href="sports-post-4th-deposit-loyalty.html"><span class="when">4th deposit</span><span class="what">Email 6 · Loyalty</span><span class="hook">Weekly cashback + league leaderboards</span></a></div></div>
+<div class="map-block"><div class="map-label">Weekly Promo Calendar · all depositors</div><div class="week"><div class="day"><b>Mon</b><span class="chip plan">8% Slots Cashback</span></div><div class="day"><b>Tue</b><span class="chip plan">10% eSports Cashback</span></div><div class="day"><b>Wed</b><span class="chip plan">Live Happy Hour 14:00–16:00 UTC</span></div><div class="day"><b>Thu</b><a class="chip" href="sports-weekly-newsletter.html">Weekly Newsletter</a></div><div class="day"><b>Fri</b><span class="chip plan">Free Spin Ladder starts</span></div><div class="day"><b>Sat</b><span class="chip plan">Free Bet Club: wager $50, get a $20 free bet</span><a class="chip" href="sports-post-3rd-deposit-acca-boost.html">ACCA Boost</a></div><div class="day"><b>Sun</b><span class="chip plan">Free Bet Club</span><span class="chip plan">Free Spin Ladder ends</span></div></div><p class="map-note">Dashed chips are promos from the offer plan; each gets its own campaign in the CRM when it runs. Linked chips have a ready template in this demo. Placements are suggestions, not live CRM schedules.</p></div>
+<div class="map-block"><div class="map-label">Lifecycle Triggers · engagement &amp; win-back</div><div class="triggers"><div class="trigger"><div class="node check">Bonus claimed, no deposit</div><div class="wire"><span>Wait 1 hour</span></div><a class="node email" href="sports-bonus-claimed-pending-deposit.html"><span class="when">High intent</span><span class="what">Your Bonus Is Waiting</span><span class="hook">Recovery with 24/7 support</span></a></div><div class="trigger"><div class="node check">Sessions trending down (Declining segment)</div><div class="wire"></div><a class="node email" href="sports-declining-activity.html"><span class="when">Early warning</span><span class="what">Still Here For You</span><span class="hook">Soft check-in, no pressure</span></a></div><div class="trigger"><div class="node check">Frequent depositor gone quiet (High risk)</div><div class="wire"></div><a class="node email" href="sports-high-risk-churn.html"><span class="when">Churn risk</span><span class="what">We Noticed You've Slowed Down</span><span class="hook">Fires before the D+7/14/30 drip</span></a></div><div class="trigger"><div class="node check">Inactive 7 days</div><div class="wire"></div><a class="node email" href="sports-reactivation-d7.html"><span class="when">Win-back · D+7</span><span class="what">We Saved Your Spot</span><span class="hook">Cashback, Originals, ACCA Boost</span></a></div><div class="trigger"><div class="node check">Inactive 14 days</div><div class="wire"></div><a class="node email" href="sports-reactivation-d14.html"><span class="when">Win-back · D+14</span><span class="what">Your League Rank Is Still Live</span><span class="hook">No-deposit league reward + cashback</span></a></div><div class="trigger"><div class="node check">Inactive 30 days</div><div class="wire"></div><a class="node email" href="sports-reactivation-d30.html"><span class="when">Win-back · D+30</span><span class="what">Last Call: Cashback Resets</span><span class="hook">Final call around the weekly reset</span></a></div><div class="trigger"><div class="node check">Broadcast to all non-depositors</div><div class="wire"></div><a class="node email" href="sports-card-bank-deposits-announcement.html"><span class="when">Broadcast</span><span class="what">Card &amp; Bank Deposits Are Live</span><span class="hook">Fiat on-ramp announcement</span></a></div></div></div>
+</div>
+<div class="col-lib"><div class="section-title" style="margin-top:34px;">📂 Template Library</div><div class="template-desc" style="margin:-6px 0 14px;">19 templates, English. Crypto and fiat payment paths are built into the onboarding and deposit emails.</div><div class="section-title">🎁 Onboarding &amp; Welcome</div><ul class="template-list"><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">1. Welcome + 100% Match</span><span class="lang-switch"><a href="sports-welcome.html" class="lang-pill">Open</a></span></div><div class="template-desc">Sent on registration. Sportsbook match plus free spins, bonus-at-a-glance table and the crypto and fiat deposit paths.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">2. Registered, No Deposit — 1st Reminder</span><span class="lang-switch"><a href="sports-reg-no-deposit-1st.html" class="lang-pill">Open</a></span></div><div class="template-desc">Initial follow-up pushing the deposit match.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">3. Registered, No Deposit — Wallet Guide</span><span class="lang-switch"><a href="sports-reg-no-deposit-2nd-wallet-guide.html" class="lang-pill">Open</a></span></div><div class="template-desc">Assisted onboarding with crypto and Web3 wallet guides.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">4. Card &amp; Bank On-ramp — Day 5</span><span class="lang-switch"><a href="sports-card-bank-onramp-day1.html" class="lang-pill">Open</a></span></div><div class="template-desc">Leads with card and bank deposits to remove the crypto barrier.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">5. Registered, No Deposit — Bonus Reserved</span><span class="lang-switch"><a href="sports-reg-no-deposit-3rd.html" class="lang-pill">Open</a></span></div><div class="template-desc">Urgency without fake deadlines: big wins and reserved bonus status.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">6. Registered, No Deposit — Final Reminder</span><span class="lang-switch"><a href="sports-reg-no-deposit-final.html" class="lang-pill">Open</a></span></div><div class="template-desc">Broad ecosystem showcase: sports, casino, prediction markets, cashback.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">7. Bonus Claimed, Pending Deposit — 1h</span><span class="lang-switch"><a href="sports-bonus-claimed-pending-deposit.html" class="lang-pill">Open</a></span></div><div class="template-desc">High-intent recovery template with 24/7 support assistance.</div></div></li></ul><div class="section-title">💰 Deposit Milestones</div><ul class="template-list"><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">8. Bonus Unlocked — First Deposit</span><span class="lang-switch"><a href="sports-deposit-completed.html" class="lang-pill">Open</a></span></div><div class="template-desc">Confirms funding and an active welcome package.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">9. Originals &amp; Live Tables — Day 1</span><span class="lang-switch"><a href="sports-post-first-deposit-day1.html" class="lang-pill">Open</a></span></div><div class="template-desc">Spotlights Originals, live dealer tables and popular slots.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">10. Second Deposit Nudge</span><span class="lang-switch"><a href="sports-second-deposit-nudge.html" class="lang-pill">Open</a></span></div><div class="template-desc">Targets "first deposit, played, no 2nd deposit" players.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">11. ACCA Boost — After 3rd Deposit</span><span class="lang-switch"><a href="sports-post-3rd-deposit-acca-boost.html" class="lang-pill">Open</a></span></div><div class="template-desc">Sportsbook combo boosts and multi-vertical play.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">12. Weekly Cashback &amp; Leaderboards — After 4th Deposit</span><span class="lang-switch"><a href="sports-post-4th-deposit-loyalty.html" class="lang-pill">Open</a></span></div><div class="template-desc">Drives long-term habit with cashback and league leaderboards.</div></div></li></ul><div class="section-title">📰 Newsletter &amp; Broadcast</div><ul class="template-list"><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">13. Weekly Newsletter</span><span class="lang-switch"><a href="sports-weekly-newsletter.html" class="lang-pill">Open</a></span></div><div class="template-desc">Modular broadcast: the big match of the week plus featured games.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">14. Card &amp; Bank Deposits Announcement</span><span class="lang-switch"><a href="sports-card-bank-deposits-announcement.html" class="lang-pill">Open</a></span></div><div class="template-desc">Announces fiat deposits: card, Apple Pay, Google Pay and bank.</div></div></li></ul><div class="section-title">🔁 Retention &amp; Win-back</div><ul class="template-list"><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">15. Declining Activity Check-in</span><span class="lang-switch"><a href="sports-declining-activity.html" class="lang-pill">Open</a></span></div><div class="template-desc">Soft, no-pressure tone for sessions trending down.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">16. High-Risk Churn Check-in</span><span class="lang-switch"><a href="sports-high-risk-churn.html" class="lang-pill">Open</a></span></div><div class="template-desc">Previously frequent depositors who have gone quiet.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">17. Reactivation — D+7</span><span class="lang-switch"><a href="sports-reactivation-d7.html" class="lang-pill">Open</a></span></div><div class="template-desc">Low-pressure reminder of what is still live.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">18. Reactivation — D+14</span><span class="lang-switch"><a href="sports-reactivation-d14.html" class="lang-pill">Open</a></span></div><div class="template-desc">Medium push built around the no-deposit league reward.</div></div></li><li class="template-item"><div class="template-card"><div class="template-title-row"><span class="template-title">19. Reactivation — D+30</span><span class="lang-switch"><a href="sports-reactivation-d30.html" class="lang-pill">Open</a></span></div><div class="template-desc">Final call around the weekly cashback reset.</div></div></li></ul></div>
+</div>
+<section class="strategy" id="segments">
+            <div class="section-title">👥 Player Value Segments</div>
+            <p class="lead">Instead of sending every offer to every depositor, players are grouped by what they deposited in the last 30 days. Each group gets offers that fit, and a cap on how many promo emails they receive. Flow emails (onboarding, deposit ladder, lifecycle triggers) are sent on top and don't count towards the cap.</p>
+            <div class="table-scroll"><table class="strat-table">
+                <thead><tr><th>Segment</th><th>Who</th><th>What they get</th><th>Promo emails / week</th></tr></thead>
+                <tbody>
+                    <tr><td>🆕 New</td><td>Registered or first deposit in the last 7 days</td><td>Onboarding and deposit-ladder flows only. No weekly promos yet, so the welcome package gets full attention.</td><td class="num">0</td></tr>
+                    <tr><td>🥉 Low value</td><td>Under $100 deposited in the last 30 days</td><td>Newsletter, slots cashback and free-spin offers. No large deposit matches.</td><td class="num">2</td></tr>
+                    <tr><td>🥈 Mid value</td><td>$100 – $999 in the last 30 days</td><td>Full weekly calendar: cashback, Free Bet Club, ACCA boosts, live happy hour, newsletter.</td><td class="num">3</td></tr>
+                    <tr><td>🥇 High value</td><td>$1,000+ in the last 30 days (roughly Bronze rank and up)</td><td>VIP Reload Tuesday and VIP messages, fewer mass promos, personal follow-up from the VIP team.</td><td class="num">2 + personal</td></tr>
+                    <tr><td>💤 Dormant</td><td>No deposit or login in 30+ days</td><td>Win-back emails only (D+7, D+14, D+30).</td><td class="num">1</td></tr>
+                </tbody>
+            </table></div>
+            <p class="strat-note">Thresholds are a starting point: review them after 4 weeks of data. More segments can be layered on top, for example slots vs live casino players, bonus-sensitive vs no-bonus players, or by region. Offer rule of thumb: the smallest offer that works, and recognition before bonuses for high-value players.</p>
+        </section>
+
+        <section class="strategy" id="retention">
+            <div class="section-title">📊 Measuring Retention</div>
+            <p class="lead">These are the numbers that show whether the CRM is working. Measure a 4-week baseline first, then set targets and review them monthly, per segment.</p>
+            <div class="table-scroll"><table class="strat-table">
+                <thead><tr><th>Metric</th><th>Definition</th><th>What it tells us</th></tr></thead>
+                <tbody>
+                    <tr><td>Registration → first deposit</td><td>% of new registrations that make a first deposit within 7 days</td><td>Is the Day 0–7 onboarding flow working?</td></tr>
+                    <tr><td>First → second deposit</td><td>% of first-time depositors who deposit again within 7 days</td><td>Is the deposit ladder working?</td></tr>
+                    <tr><td>Week-2 retention</td><td>% of first-time depositors who place a real-money bet on days 7–13 after their first deposit</td><td>The "7-day retention" number</td></tr>
+                    <tr><td>Month-2 retention</td><td>% of first-time depositors who place a real-money bet on days 30–59 after their first deposit</td><td>The "30-day retention" number</td></tr>
+                    <tr><td>Bonus cost per retained player</td><td>Bonus + cashback cost ÷ players still active in month 2</td><td>Are bonuses buying retention, or just cost?</td></tr>
+                    <tr><td>Email performance</td><td>Click rate, deposits within 48h of a click, and unsubscribes, per email</td><td>Which emails earn their place in the flow</td></tr>
+                </tbody>
+            </table></div>
+            <div class="how-grid">
+                <div class="how"><b>Control group</b><p>Hold back 10% of eligible players from each flow. Comparing their retention with players who got the emails shows the real lift the CRM creates.</p></div>
+                <div class="how"><b>Tracking tags</b><p>Every link in every email carries <code>utm_source=rapidpace</code>, <code>utm_medium=email</code> and <code>utm_campaign=&lt;email name&gt;</code>, so site analytics shows which email drove each visit and deposit.</p></div>
+                <div class="how"><b>Clicks over opens</b><p>Apple Mail pre-loads emails, which inflates open rates. Judge emails on clicks and deposits after a click instead.</p></div>
+            </div>
+        </section>
+<div class="footer">© 2026 Rapidpace • Demo content for illustration. The operator, offers and legal wording are fictional.</div>
+</div>
+<style>.chip.plan{border-style:dashed;background:transparent;color:#cfd8d5;cursor:default}</style>
+</body>
+</html>
